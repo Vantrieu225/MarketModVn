@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Thời Trang - Đăng Nhập & Mua Sắm</title>
+    <title>Shop Mod & Acc - Đăng Nhập & Đăng Ký</title>
     
-    <!-- Font Poppins đẹp -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Icon Font Awesome -->
+    <!-- Phông chữ cơ bản: Roboto (Google Fonts) - đơn giản, hiện đại như các web lớn -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Icon Font Awesome cho icon (mắt mật khẩu, social, v.v.) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
 
         body {
@@ -23,355 +23,488 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: background 0.5s;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); /* Gradient tối cho shop game, như Steam/Epic */
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng background động (như sao hoặc particle nhẹ cho game feel) */
+        #background-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .container {
-            position: relative;
+            background: rgba(255, 255, 255, 0.05); /* Glassmorphism mờ đục tinh tế */
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 40px;
             width: 420px;
-            backdrop-filter: blur(20px);
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px 35px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             text-align: center;
-            color: white;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        h2 {
-            font-size: 32px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header với logo và tiêu đề (như web lớn) */
+        .header {
             margin-bottom: 30px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        .input-box {
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #00bfff; /* Màu xanh neon cho game */
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #a0a0a0;
+            font-weight: 300;
+        }
+
+        /* Form chung */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group {
             position: relative;
-            margin: 25px 0;
+            margin-bottom: 20px;
         }
 
-        .input-box input {
+        .input-group input {
             width: 100%;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            outline: none;
-            border-radius: 50px;
-            color: white;
+            padding: 12px 45px 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
             font-size: 16px;
+            transition: border 0.3s, background 0.3s;
         }
 
-        .input-box input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+        .input-group input:focus {
+            border: 1px solid #00bfff;
+            background: rgba(255, 255, 255, 0.15);
+            outline: none;
         }
 
-        .input-box i {
+        .input-group input::placeholder {
+            color: #ccc;
+            font-weight: 300;
+        }
+
+        .input-icon {
             position: absolute;
-            right: 20px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: white;
-            font-size: 20px;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #ff6b6b, #f06595);
-            border: none;
-            border-radius: 50px;
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            transition: 0.4s;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        }
-
-        .links {
-            margin-top: 30px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .links a:hover {
-            text-decoration: underline;
-        }
-
-        /* Trang shop */
-        .shop {
-            display: none;
-        }
-
-        header {
-            margin-bottom: 30px;
-        }
-
-        .user-info {
-            margin-top: 20px;
+            color: #a0a0a0;
             font-size: 16px;
         }
 
-        .logout-btn {
-            width: auto;
-            padding: 10px 20px;
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0a0a0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .password-toggle:hover {
+            color: #fff;
+        }
+
+        /* Checkbox remember me (chi tiết như web lớn) */
+        .remember-me {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
             font-size: 14px;
-            margin-left: 15px;
+            color: #ccc;
         }
 
-        .products-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-            max-height: 60vh;
-            overflow-y: auto;
-            padding: 10px;
+        .remember-me label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
         }
 
-        .product {
-            background: rgba(255,255,255,0.15);
-            border-radius: 15px;
-            padding: 20px;
+        .remember-me input {
+            margin-right: 8px;
+            accent-color: #00bfff;
+        }
+
+        .forgot-password {
+            color: #00bfff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .forgot-password:hover {
+            color: #fff;
+        }
+
+        /* Nút login (đẹp, với hover effect) */
+        .btn-primary {
+            background: linear-gradient(45deg, #00bfff, #1e90ff);
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4);
+        }
+
+        /* Social login (như Epic/Steam) */
+        .social-login {
+            margin: 20px 0;
+            position: relative;
             text-align: center;
-            transition: 0.3s;
         }
 
-        .product:hover {
-            transform: scale(1.05);
-            background: rgba(255,255,255,0.25);
-        }
-
-        .product img {
+        .social-login::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            background: #ccc;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .product h3 {
-            margin: 15px 0 10px;
+        .social-login span {
+            background: #0f2027;
+            padding: 0 10px;
+            position: relative;
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s, border 0.3s;
+            font-size: 14px;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid #00bfff;
+        }
+
+        .social-btn i {
             font-size: 18px;
         }
 
-        .product p {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 15px;
+        /* Link chuyển sang register */
+        .switch-form {
+            font-size: 14px;
+            color: #ccc;
         }
 
-        .cart-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: white;
-            font-size: 18px;
+        .switch-form a {
+            color: #00bfff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .switch-form a:hover {
+            color: #fff;
+        }
+
+        /* Footer (như web lớn: privacy, terms) */
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #a0a0a0;
+        }
+
+        .footer a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 5px;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #fff;
+        }
+
+        /* Alert cho lỗi/validation (siêu chi tiết) */
+        .alert {
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+            animation: shake 0.3s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Responsive cho mobile */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 30px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Trang Đăng Nhập / Đăng Ký -->
-    <div class="container" id="auth-container">
-        <div id="login-form">
-            <h2>Đăng Nhập</h2>
-            <div class="input-box">
-                <input type="text" id="login-identifier" placeholder="Tên đăng nhập hoặc Email" required>
-                <i class="fas fa-user"></i>
+    <!-- Background particles cho hiệu ứng đẹp (như game) -->
+    <canvas id="background-particles"></canvas>
+
+    <!-- Container chính -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">MarketModVn</div>
+            <div class="subtitle">Buôn bán acc, mod, hack game hot nhất</div>
+        </div>
+
+        <!-- Alert hiển thị lỗi -->
+        <div id="alert-message" class="alert"></div>
+
+        <!-- Form Đăng nhập (mặc định hiển thị) -->
+        <form id="login-form">
+            <div class="input-group">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" id="login-username" placeholder="Tên đăng nhập hoặc Email" required>
             </div>
-            <div class="input-box">
+            <div class="input-group">
+                <i class="fas fa-lock input-icon"></i>
                 <input type="password" id="login-password" placeholder="Mật khẩu" required>
-                <i class="fas fa-lock"></i>
+                <i class="fas fa-eye-slash password-toggle" onclick="togglePassword('login-password', this)"></i>
             </div>
-            <button onclick="handleLogin()">Đăng Nhập</button>
-            <div class="links">
-                <p>Chưa có tài khoản? <a href="#" onclick="showRegister()">Đăng ký ngay</a></p>
+            <div class="remember-me">
+                <label>
+                    <input type="checkbox" checked>
+                    Nhớ đăng nhập
+                </label>
+                <a href="#" class="forgot-password">Quên mật khẩu?</a>
             </div>
+            <button type="button" class="btn-primary" onclick="handleLogin()">Đăng Nhập</button>
+        </form>
+
+        <!-- Social login -->
+        <div class="social-login">
+            <span>Hoặc đăng nhập với</span>
+        </div>
+        <div class="social-buttons">
+            <a href="#" class="social-btn"><i class="fab fa-google"></i> Google</a>
+            <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="#" class="social-btn"><i class="fab fa-apple"></i> Apple</a>
         </div>
 
-        <div id="register-form" style="display: none;">
-            <h2>Đăng Ký</h2>
-            <div class="input-box">
-                <input type="text" id="reg-username" placeholder="Tên đăng nhập" required>
-                <i class="fas fa-user"></i>
+        <!-- Chuyển sang đăng ký -->
+        <div class="switch-form">
+            Chưa có tài khoản? <a href="#" onclick="showRegisterForm()">Đăng ký ngay</a>
+        </div>
+
+        <!-- Form Đăng ký (ẩn ban đầu) -->
+        <form id="register-form" style="display: none;">
+            <div class="input-group">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" id="reg-username" placeholder="Tên đăng nhập (4-20 ký tự)" required>
             </div>
-            <div class="input-box">
+            <div class="input-group">
+                <i class="fas fa-envelope input-icon"></i>
                 <input type="email" id="reg-email" placeholder="Email" required>
-                <i class="fas fa-envelope"></i>
             </div>
-            <div class="input-box">
-                <input type="password" id="reg-password" placeholder="Mật khẩu" required>
-                <i class="fas fa-lock"></i>
+            <div class="input-group">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="reg-password" placeholder="Mật khẩu (ít nhất 8 ký tự)" required>
+                <i class="fas fa-eye-slash password-toggle" onclick="togglePassword('reg-password', this)"></i>
             </div>
-            <div class="input-box">
+            <div class="input-group">
+                <i class="fas fa-lock input-icon"></i>
                 <input type="password" id="reg-confirm" placeholder="Xác nhận mật khẩu" required>
-                <i class="fas fa-lock"></i>
+                <i class="fas fa-eye-slash password-toggle" onclick="togglePassword('reg-confirm', this)"></i>
             </div>
-            <button onclick="handleRegister()">Đăng Ký</button>
-            <div class="links">
-                <p>Đã có tài khoản? <a href="#" onclick="showLogin()">Đăng nhập</a></p>
+            <button type="button" class="btn-primary" onclick="handleRegister()">Đăng Ký</button>
+            <div class="switch-form">
+                Đã có tài khoản? <a href="#" onclick="showLoginForm()">Đăng nhập</a>
             </div>
+        </form>
+
+        <!-- Footer -->
+        <div class="footer">
+            <a href="#">Chính sách bảo mật</a> |
+            <a href="#">Điều khoản dịch vụ</a> |
+            <a href="#">Hỗ trợ</a> |
+            <a href="#">Liên hệ</a>
         </div>
-    </div>
-
-    <!-- Trang Shop (ẩn lúc đầu) -->
-    <div class="container shop" id="shop-container" style="display: none;">
-        <header>
-            <h2>🛒 Shop Thời Trang Đẹp</h2>
-            <div class="user-info">
-                Xin chào, <strong id="username-display"></strong>!
-                <button class="logout-btn" onclick="logout()">Đăng xuất</button>
-            </div>
-        </header>
-
-        <div class="products-container" id="products-list"></div>
-
-        <a href="#" class="cart-link" onclick="alert('Giỏ hàng hiện có ' + getCartCount() + ' sản phẩm!')">Xem giỏ hàng (<span id="cart-count">0</span>)</a>
     </div>
 
     <script>
-        // Dữ liệu sản phẩm mẫu
-        const products = [
-            { id: 1, name: "Áo Thun Trắng Cool", price: 250000, img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" },
-            { id: 2, name: "Quần Jeans Xanh", price: 450000, img: "https://images.unsplash.com/photo-1542272604-787c167f29fd?w=400" },
-            { id: 3, name: "Giày Sneaker Đen", price: 800000, img: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400" },
-            { id: 4, name: "Túi Xách Da", price: 350000, img: "https://images.unsplash.com/photo-1553062407-98eeb964ef76?w=400" },
-            { id: 5, name: "Đồng Hồ Thể Thao", price: 1200000, img: "https://images.unsplash.com/photo-1524592099759-9e9a54a055d2?w=400" },
-            { id: 6, name: "Mũ Lưỡi Trai", price: 150000, img: "https://images.unsplash.com/photo-1588854337236-6889d6319048?w=400" }
-        ];
+        // Hiệu ứng background particles (siêu đẹp, nhẹ)
+        const canvas = document.getElementById('background-particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let particles = [];
+        for (let i = 0; i < 50; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                speed: Math.random() * 0.5 + 0.1
+            });
+        }
 
-        // Xử lý đăng ký
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.fill();
+
+                p.y += p.speed;
+                if (p.y > canvas.height) p.y = 0;
+            });
+            requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Toggle password visibility (chi tiết như web lớn)
+        function togglePassword(id, icon) {
+            const input = document.getElementById(id);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            }
+        }
+
+        // Chuyển form
+        function showRegisterForm() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'block';
+            clearAlert();
+        }
+
+        function showLoginForm() {
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+            clearAlert();
+        }
+
+        // Xử lý login (validation chi tiết)
+        function handleLogin() {
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+
+            if (!username || !password) {
+                showAlert('Vui lòng điền đầy đủ thông tin!');
+                return;
+            }
+
+            // Demo: Lưu session và redirect
+            localStorage.setItem('loggedIn', true);
+            alert('Đăng nhập thành công! Chuyển đến shop...');
+            // window.location.href = '/shop.html'; // Thay bằng link shop thật
+        }
+
+        // Xử lý register (validation siêu chi tiết)
         function handleRegister() {
             const username = document.getElementById('reg-username').value.trim();
             const email = document.getElementById('reg-email').value.trim();
             const password = document.getElementById('reg-password').value;
             const confirm = document.getElementById('reg-confirm').value;
 
-            if (!username || !email || !password) {
-                alert("Vui lòng điền đầy đủ!");
+            if (username.length < 4 || username.length > 20) {
+                showAlert('Tên đăng nhập phải 4-20 ký tự!');
                 return;
             }
+
+            if (!email.match(/^\S+@\S+\.\S+$/)) {
+                showAlert('Email không hợp lệ!');
+                return;
+            }
+
+            if (password.length < 8) {
+                showAlert('Mật khẩu phải ít nhất 8 ký tự!');
+                return;
+            }
+
             if (password !== confirm) {
-                alert("Mật khẩu không trùng khớp!");
+                showAlert('Mật khẩu không khớp!');
                 return;
             }
 
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            if (users.find(u => u.username === username || u.email === email)) {
-                alert("Tên đăng nhập hoặc email đã tồn tại!");
-                return;
-            }
-
-            users.push({ username, email, password });
-            localStorage.setItem('users', JSON.stringify(users));
-            alert("Đăng ký thành công! Đang chuyển sang đăng nhập...");
-            showLogin();
+            // Demo: Lưu và chuyển
+            localStorage.setItem('loggedIn', true);
+            alert('Đăng ký thành công! Chuyển đến shop...');
+            // window.location.href = '/shop.html';
         }
 
-        // Xử lý đăng nhập
-        function handleLogin() {
-            const identifier = document.getElementById('login-identifier').value.trim();
-            const password = document.getElementById('login-password').value;
-
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            let user = users.find(u => (u.username === identifier || u.email === identifier) && u.password === password);
-
-            if (user) {
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                showShop(user.username);
-            } else {
-                alert("Sai tên đăng nhập/email hoặc mật khẩu!");
-            }
+        // Hiển thị alert
+        function showAlert(message) {
+            const alert = document.getElementById('alert-message');
+            alert.textContent = message;
+            alert.style.display = 'block';
         }
 
-        // Hiển thị trang đăng ký
-        function showRegister() {
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('register-form').style.display = 'block';
-        }
-
-        // Hiển thị trang đăng nhập
-        function showLogin() {
-            document.getElementById('register-form').style.display = 'none';
-            document.getElementById('login-form').style.display = 'block';
-        }
-
-        // Hiển thị shop
-        function showShop(username) {
-            document.getElementById('auth-container').style.display = 'none';
-            document.getElementById('shop-container').style.display = 'block';
-            document.getElementById('username-display').textContent = username;
-
-            displayProducts();
-            updateCartCount();
-        }
-
-        // Đăng xuất
-        function logout() {
-            localStorage.removeItem('currentUser');
-            document.getElementById('shop-container').style.display = 'none';
-            document.getElementById('auth-container').style.display = 'block';
-            showLogin();
-            document.getElementById('login-identifier').value = '';
-            document.getElementById('login-password').value = '';
-        }
-
-        // Hiển thị sản phẩm
-        function displayProducts() {
-            const container = document.getElementById('products-list');
-            container.innerHTML = products.map(p => `
-                <div class="product">
-                    <img src="\( {p.img}" alt=" \){p.name}">
-                    <h3>${p.name}</h3>
-                    <p>${p.price.toLocaleString('vi-VN')} ₫</p>
-                    <button onclick="addToCart(${p.id})">Thêm vào giỏ</button>
-                </div>
-            `).join('');
-        }
-
-        // Thêm vào giỏ
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            const existing = cart.find(item => item.id === id);
-            if (existing) existing.quantity += 1;
-            else cart.push({ ...product, quantity: 1 });
-
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            alert("Đã thêm " + product.name + " vào giỏ hàng!");
-        }
-
-        // Cập nhật số lượng giỏ hàng
-        function updateCartCount() {
-            const count = cart.reduce((total, item) => total + item.quantity, 0);
-            document.getElementById('cart-count').textContent = count;
-        }
-
-        function getCartCount() {
-            return cart.reduce((total, item) => total + item.quantity, 0);
-        }
-
-        // Kiểm tra nếu đã đăng nhập thì vào thẳng shop
-        window.onload = function() {
-            const currentUser = localStorage.getItem('currentUser');
-            if (currentUser) {
-                const user = JSON.parse(currentUser);
-                showShop(user.username);
-            }
+        function clearAlert() {
+            document.getElementById('alert-message').style.display = 'none';
         }
     </script>
 </body>
